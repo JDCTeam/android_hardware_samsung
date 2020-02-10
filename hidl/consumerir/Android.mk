@@ -1,4 +1,5 @@
-# Copyright (C) 2016 The Android Open Source Project
+#
+# Copyright (C) 2020 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,27 +12,31 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-# HAL module implementation stored in
-# hw/<POWERS_HARDWARE_MODULE_ID>.<ro.hardware>.so
+#
 
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := consumerir.c
+LOCAL_SRC_FILES := \
+    ConsumerIr.cpp \
+    service.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils
+LOCAL_SHARED_LIBRARIES := \
+    libbase \
+    libbinder \
+    libhidlbase \
+    libhidltransport \
+    libutils \
+    android.hardware.ir@1.0
 
-ifeq ($(IR_HAL_SUFFIX),)
-IR_HAL_SUFFIX := $(TARGET_BOARD_PLATFORM)
-endif
-
-LOCAL_MODULE := consumerir.$(IR_HAL_SUFFIX)
+LOCAL_MODULE := android.hardware.ir@1.0-service.samsung
+LOCAL_INIT_RC := android.hardware.ir@1.0-service.samsung.rc
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_OWNER := samsung
+LOCAL_VENDOR_MODULE := true
 
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_EXECUTABLE)
