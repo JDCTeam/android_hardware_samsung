@@ -24,8 +24,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.SwitchPreference;
 
-import org.lineageos.internal.util.ScreenType;
-
 public class TouchscreenGestureSettings extends PreferenceFragment {
 
     private static final String KEY_HAND_WAVE = "gesture_hand_wave";
